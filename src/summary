@@ -1,0 +1,104 @@
+states : build in object  (single source of truth)
+to store the component
+so that i can reuse it
+
+
+binding of a func is very important to prevent the data loss or not found   onClick={this.addStars.bind(this)} 
+
+ or you can globally bind the function inside the constructor like  this.addStars=this.addStars.bind(this);
+
+ we can even use arrow func
+
+instead of rerendering the component
+ to update state we can use setstate()
+
+ learn setstate:
+
+ 1.asynchronus nature   
+         |
+       we can acheive correct output only by passing the call back function   
+
+2.batching -> when we make multiple calls to setstate react will batch that calls together in single call 
+                                      only the last call given call is considered for first form   ( this.setState({
+            stars: this.state.stars-=0.5
+        });)
+
+for second form the rerendered will be only once but it considers all the calls ..as we are depending on the prevstate (a queue will be maintained... so we call the setstate it goes to every prevstate and does the operation)
+
+this.setState((prevState)=>{
+               return{
+               stars : prevState.stars-0.5
+               }
+        })
+
+
+condtional rendering
+{ fav? <button className="unfavourite-btn" onClick={this.handleFav}>Un-Favourite</button>:
+                    <button className="favourite-btn" onClick={this.handleFav}>Favourites</button>}
+
+
+fragmnets <></> used for function calls in the return
+
+props->helps to tranfer data from one componentto other
+
+props->arguments in functions
+props->data passed as attributes
+props->data sent from parent to child components
+props are read only
+pass props using destructuring syntax
+
+default props
+if prop is not provided then default value is assigned
+
+destructuring assignment
+Student.defaultProps={
+        stuname:"Student",
+        marks:"na"
+        
+}
+
+
+I want to lift the state from local moviecard and keep in to movielist.
+what are props?
+props are like arguments in js
+why we use props?
+we pass props to children components so they can access it's properties
+
+addStars=()=>{
+        if(this.state.stars>=5){
+            return;
+        }
+        //form1
+        this.setState({
+            stars: this.state.stars+=0.5
+        }, () => console.log("stars inside callback :", this.state.stars) );
+        console.log("stars :", this.state.stars);
+        // form2
+        // this.setState((prevState)=>{        //callback function "(()=>{})"
+        //      return{
+        //         stars : prevState.stars+0.5
+        //      }
+        // })
+
+       // this.state.stars+=0.5;
+       // console.log("this.state.stars: ", this.state.stars);
+    }
+why we created a state?
+because when user clicks on star, he/she wants that particular movie card should be updated with new rating
+
+types of styling:
+inline style - <div style={{color:'red'}}>hello</div>
+css StyleSheet
+styled component
+css modules
+
+styled components
+import styled,{css}from 'styled-components';
+styled components have the local Scope
+so you cannot change global styles by mistake or override them
+you need to create your own css file for each component
+
+template literals ``
+
+css modules
+create .module.scss files instead of normal scss files
